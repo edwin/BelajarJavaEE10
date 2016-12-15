@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated Dec 15, 2016 11:00:25 AM by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="com.ubl.bean.Matakuliah" table="matakuliah" catalog="test" optimistic-lock="version">
+        <id name="kodematakuliah" type="string">
+            <column name="kodematakuliah" length="10" />
+            <generator class="assigned" />
+        </id>
+        <many-to-one name="dosen" class="com.ubl.bean.Dosen" fetch="select">
+            <column name="iddosen" length="10" not-null="true" />
+        </many-to-one>
+        <property name="namamatakuliah" type="string">
+            <column name="namamatakuliah" length="20" />
+        </property>
+    </class>
+</hibernate-mapping>

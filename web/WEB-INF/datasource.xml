@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:tx="http://www.springframework.org/schema/tx"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+       xmlns:p="http://www.springframework.org/schema/p"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+            http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd">
+
+    <!-- datasource  -->
+    <bean id="ds" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close"
+          p:driverClassName="com.mysql.jdbc.Driver" p:url="jdbc:mysql://localhost/test"
+          p:username="root" p:password=""
+          p:initialSize="2"
+          p:maxActive="30"
+          p:maxIdle="10"
+          p:minIdle="3"
+          p:maxWait="30000"
+          p:removeAbandoned="true"
+          p:removeAbandonedTimeout="30"
+          p:validationQuery="SELECT 1" />
+    
+    <bean id="sessionFactory"
+        class="org.springframework.orm.hibernate4.LocalSessionFactoryBean"
+        p:dataSource-ref="ds" p:configLocations="classpath:hibernate.cfg.xml" depends-on="ds">
+        <property name="hibernateProperties">
+            <value>
+                hibernate.dialect=org.hibernate.dialect.MySQLDialect
+                hibernate.query.substitutions=true
+                hibernate.show_sql=true
+                hibernate.enable_lazy_load_no_trans=true
+            </value>
+        </property>
+    </bean> 
+    
+    <bean id="transactionManager" class="org.springframework.orm.hibernate4.HibernateTransactionManager">
+        <property name="sessionFactory" ref="sessionFactory" />
+    </bean>
+    
+</beans>
