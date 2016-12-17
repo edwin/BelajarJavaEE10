@@ -7,11 +7,11 @@
             http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd">
 
     <!-- datasource  -->
-    <bean id="ds" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close"
+    <bean id="ds" class="org.apache.tomcat.jdbc.pool.DataSource" destroy-method="close"
           p:driverClassName="com.mysql.jdbc.Driver" p:url="jdbc:mysql://localhost/test"
           p:username="root" p:password=""
-          p:initialSize="2"
-          p:maxActive="30"
+          p:initialSize="10"
+          p:maxActive="50"
           p:maxIdle="10"
           p:minIdle="3"
           p:maxWait="30000"
